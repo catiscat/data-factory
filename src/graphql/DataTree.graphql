@@ -1,0 +1,21 @@
+{
+  DataChangeRecords {
+    databaseName
+    tableName
+    ymd
+    partitionValue
+    numRows
+    uniqueNumRows
+    duplicate
+    duplicateRate
+    ringThanNumRows
+    sameThanNumRows
+    ringThanNumRowsRate
+    sameThanNumRowsRate
+    duplicateRingThanNumRowsRate
+    duplicateSameThanNumRowsRate
+    sameThanDate
+    hasDuplicate
+    hasRingThanGrow
+  }
+}
