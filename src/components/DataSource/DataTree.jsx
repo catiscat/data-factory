@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Table, Input } from 'antd'
+import { setKeys } from '../../utils/tableDataTool';
+import SearchGroup from '../Common/SearchGroup';
+
 
 const propTypes = {
   onFetchDataTree: PropTypes.func,
@@ -13,7 +16,7 @@ class DataTree extends Component {
   constructor(props) {
     super(props)
     const { dataTree = {} } = this.props;
-    this.state = { dataSource: (dataTree && dataTree.DataChangeRecords) }
+    this.state = { dataSource: setKeys(dataTree && dataTree.DataChangeRecords) }
   }
 
   componentDidMount() {
@@ -23,9 +26,8 @@ class DataTree extends Component {
 
   componentWillReceiveProps(nextProps, nextState) {
     if (nextProps.dataTree) {
-      console.log(nextProps.dataTree, 'nexprops');
       const { dataTree = {} } = nextProps;
-      this.setState({ dataSource: (dataTree && dataTree.DataChangeRecords) })
+      this.setState({ dataSource: setKeys(dataTree && dataTree.DataChangeRecords) })
     }
   }
 
@@ -51,33 +53,35 @@ class DataTree extends Component {
         + a(record.hasDuplicate)
         + a(record.hasRingThanGrow) || '').search(event.target.value) > -1
     })
-    this.setState({ dataSource: filetred });
+    this.setState({ dataSource: setKeys(filetred) });
   }
 
-  render() {
-    const { dataTree } = this.props;
-    console.dir(dataTree);
+  getColumns() {
     const columns = [{
       title: '库',
       dataIndex: 'databaseName',
       key: 'databaseName',
+      width: 100,
+      fixed: 'left'
+
     }, {
       title: '表',
       dataIndex: 'tableName',
       key: 'tableName',
+      width: 200,
+      fixed: 'left'
     }, {
       title: '时间',
       dataIndex: 'ymd',
       key: 'ymd',
+      width: 100,
       render: (text, record, index) => {
         if (record.hasDuplicate || !record.hasRingThanGrow) {
-          return <div style={{ color: '#e6a23c' }} >
+          return (<div style={{ color: '#e6a23c' }} >
             {text}
-          </div>
+          </div>)
         } else {
-          return <div style={{}} >
-            {text}
-          </div>
+          return (<div>{text}</div>)
         }
       },
       sorter: (a, b) => {
@@ -91,91 +95,107 @@ class DataTree extends Component {
     }, {
       title: '分区',
       dataIndex: 'partitionValue',
-      key: 'partitionValue'
+      key: 'partitionValue',
+      width: 100,
     }, {
       title: '行数',
       dataIndex: 'numRows',
-      key: 'numRows'
+      key: 'numRows',
+      width: 200,
     }, {
       title: '是否重复',
       dataIndex: 'hasDuplicate',
       key: 'hasDuplicate',
+      width: 200,
       render: (text, record, index) => {
-        console.log(text, '是否重复');
         if (record.hasDuplicate) {
-          return <div style={{ color: '#e6a23c' }} >
+          return (<div className={'warn-column'} style={{ backgroundColor: '#e6a23c' }} >
             {'yes'}
-          </div>
+          </div>)
         } else {
-          return <div style={{}} >
+          return (<div style={{}} >
             {'no'}
-          </div>
+          </div>)
         }
       },
     }, {
       title: '是否增长',
       dataIndex: 'hasRingThanGrow',
       key: 'hasRingThanGrow',
+      width: 150,
       render: (text, record, index) => {
         if (!record.hasRingThanGrow) {
-          return <div style={{ color: '#f56c6c' }} >
+          return (<div className={'warn-column'} style={{ backgroundColor: '#f56c6c' }} >
             {'no'}
-          </div>
+          </div>)
         } else {
-          return <div style={{}} >
+          return (<div style={{}} >
             {'yes'}
-          </div>
+          </div>)
         }
       },
     }, {
       title: '去重后行数',
       dataIndex: 'uniqueNumRows',
-      key: 'uniqueNumRows'
+      key: 'uniqueNumRows',
+      width: 200,
     }, {
       title: '重复行数',
       dataIndex: 'duplicate',
-      key: 'duplicate'
+      key: 'duplicate',
+      width: 200,
     }, {
       title: '重复率',
       dataIndex: 'duplicateRate',
-      key: 'duplicateRate'
+      key: 'duplicateRate',
+      width: 200,
     }, {
       title: '环比增长行数',
       dataIndex: 'ringThanNumRows',
-      key: 'ringThanNumRows'
+      key: 'ringThanNumRows',
+      width: 250,
     }, {
       title: '同比增长行数',
       dataIndex: 'sameThanNumRows',
-      key: 'sameThanNumRows'
+      key: 'sameThanNumRows',
+      width: 250,
     }, {
       title: '环比',
       dataIndex: 'ringThanNumRowsRate',
-      key: 'ringThanNumRowsRate'
+      key: 'ringThanNumRowsRate',
+      width: 100,
     }, {
       title: '同比',
       dataIndex: 'sameThanNumRowsRate',
-      key: 'sameThanNumRowsRate'
+      key: 'sameThanNumRowsRate',
+      width: 100,
     }, {
       title: '重复行数环比',
       dataIndex: 'duplicateRingThanNumRowsRate',
-      key: 'duplicateRingThanNumRowsRate'
+      key: 'duplicateRingThanNumRowsRate',
+      width: 250,
     }, {
       title: '重复行数同比',
       dataIndex: 'duplicateSameThanNumRowsRate',
-      key: 'duplicateSameThanNumRowsRate'
+      key: 'duplicateSameThanNumRowsRate',
+      width: 250,
     }, {
       title: '同比日期',
       dataIndex: 'sameThanDate',
-      key: 'sameThanDate'
+      key: 'sameThanDate',
+      width: 150,
+      fixed: 'right'
     }
     ];
+    return columns;
+  }
 
-
+  render() {
     return (
       <div>
-        <h1>数据量状况</h1>
-        <Input size="large" placeholder="搜索" style={{ width: '400px' }} onChange={this.handleSearch} />
-        <Table dataSource={this.state.dataSource} columns={columns} />
+        <h3>数据量状况</h3>
+        <SearchGroup onSearch={this.handleSearch} />
+        <Table scroll={{ x: 1500, y: 300 }} dataSource={this.state.dataSource} columns={this.getColumns()} />
       </div>
     )
   }

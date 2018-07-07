@@ -10,7 +10,7 @@
   "author": "duck",
   "license": "MIT",
   "dependencies": {
-    "antd": "^2.12.6",
+    "antd": "^3.6.5",
     "apollo-cache-inmemory": "^1.2.5",
     "apollo-client": "^2.3.5",
     "apollo-link": "^1.2.2",

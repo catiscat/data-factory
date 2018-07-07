@@ -5,11 +5,11 @@ const propTypes={
 
 }
 
-class LineAge extends Component {
+class Template extends Component {
   state={}
   render() {
-    return <h1>LineAge</h1>
+    return <h3>Template</h3>
   }
 }
 
-export default LineAge;
+export default Template;

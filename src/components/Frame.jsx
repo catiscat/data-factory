@@ -4,17 +4,18 @@ import { Layout, Breadcrumb } from 'antd'
 import PageHeader from './PageHeader'
 import PageSidebar from './PageSidebar'
 
-const { Content } = Layout
+const { Content, Footer } = Layout
 
 const contextTypes = {
   router: PropTypes.object.isRequired,
 };
 
+
 class Frame extends Component {
   render() {
     const { children } = this.props;
     return (
-      <Layout>
+      <Layout className="frame-layout">
         {<PageHeader />}
         <Layout>
           {<PageSidebar />}
@@ -27,6 +28,9 @@ class Frame extends Component {
             <Content style={{ background: '#fff', padding: 24, margin: 0, minHeight: 280 }}>
               { children || 'Page.Content' }
             </Content>
+            <Footer style={{ textAlign: 'center' }}>
+              省钱快报数据管理系统 ©2018 Created by 省钱快报
+            </Footer>
           </Layout>
         </Layout>
       </Layout>

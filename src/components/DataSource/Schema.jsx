@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Table, Input } from 'antd'
+import { setKeys } from '../../utils/tableDataTool';
+import SearchGroup from '../Common/SearchGroup';
+
 
 const propTypes = {
   onFetchSchema: PropTypes.func,
@@ -13,11 +16,7 @@ class Schema extends Component {
   constructor(props) {
     super(props)
     const { schema = {} } = this.props;
-    this.state = { dataSource: this.setKeys((schema && schema.TableList)) }
-  }
-
-  setKeys = (list = []) => {
-    return list.map((k, i) => ({ ...k, key: i }))
+    this.state = { dataSource: setKeys((schema && schema.TableList)) }
   }
 
   componentDidMount() {
@@ -28,15 +27,13 @@ class Schema extends Component {
 
   componentWillReceiveProps(nextProps, nextState) {
     if (nextProps.schema) {
-      console.log(nextProps.schema, 'nexprops', 'schema');
       const { schema = {} } = nextProps;
-      this.setState({ dataSource: this.setKeys((schema && schema.TableList)) })
+      this.setState({ dataSource: setKeys((schema && schema.TableList)) })
     }
   }
 
 
   handleSearch = (event) => {
-    console.log(event, 'handleSearch');
     const { schema = {} } = this.props;
     const filetred = (schema.TableList || []).filter((record) => (record.tableName
       + record.databaseName
@@ -45,12 +42,10 @@ class Schema extends Component {
       + record.inputFormat
       + record.showCreateTable
       || '').search(event.target.value) > -1)
-    console.log(filetred, 'filtered');
-    this.setState({ dataSource: this.setKeys(filetred) });
+    this.setState({ dataSource: setKeys(filetred) });
   }
 
   handleExpand = (expanded, record) => {
-    console.log(expanded, record, 'expand');
     // this.setState({ expandedRowRender: !expanded ? expandedRowRender : undefined });
   }
 
@@ -126,10 +121,9 @@ class Schema extends Component {
         title: '创表语句',
         dataIndex: 'showCreateTable',
         key: 'showCreateTable',
-        width: 550
+        width: 1000,
       }
     ];
-    console.log(record, 'expend');
     return (
       <Table
         columns={columns}
@@ -139,24 +133,17 @@ class Schema extends Component {
     );
   }
 
-
-
-
-
-  render() {
-
-
-
+  getColumns() {
     const columns = [{
       title: '库',
       dataIndex: 'databaseName',
       key: 'databaseName',
-      width: 300,
+      width: 100,
     }, {
       title: '表',
       dataIndex: 'tableName',
       key: 'tableName',
-      width: 500,
+      width: 200,
 
     }, {
       title: '创建时间',
@@ -187,32 +174,28 @@ class Schema extends Component {
       title: '存储位置',
       dataIndex: 'location',
       key: 'location',
-      width: 150
+      width: 400,
     }
     ];
+    return columns;
+  }
+  render() {
     const { schema } = this.props;
-
-
     return (
       <div>
-        <h1>表元数据</h1>
-
-        <Input size="large" placeholder="搜索" style={{ width: '400px' }} onChange={this.handleSearch} />
+        <h3>表元数据</h3>
+        <SearchGroup onSearch={this.handleSearch} />
         <Table
           className="components-table-demo-nested"
           dataSource={this.state.dataSource}
           expandedRowRender={this.expandedRowRender}
-          columns={columns}
-          scroll={{ x: 900, y: 600 }}
+          columns={this.getColumns()}
+          scroll={{ x: 1500, y: 300 }}
           expandRowByClick={false}
           onExpand={this.handleExpand}
         />
-
-
         <div>
-
         </div>
-
       </div>
 
 

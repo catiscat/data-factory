@@ -24,3 +24,14 @@ export function fetchSchema(params) {
     }
   }
 }
+
+export function fetchLineAge(params) {
+  return {
+    actionType: actionTypes.FETCH_LINEAGE_LIST,
+    options: {
+      type: 'query',
+      graphql: gql`${APIs.API_LINE_AGE_LIST}`,
+      ...params
+    }
+  }
+}
