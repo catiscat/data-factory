@@ -1,19 +1,86 @@
 <!DOCTYPE html>
  <html>
+   <style>
+  .loading-center{
+    padding-top:10%;
+  }
+     .loader{
+	border:3px solid #d6336c;
+	width:200px;
+	height:200px;
+	border-radius:50%;
+	border-left-color: transparent;
+  border-right-color: transparent;
+	animation:rotate 1s cubic-bezier(0.26, 1.36, 0.74,-0.29) infinite;
+}
+#loader2{
+	border:3px solid #3bc9db;
+	width:220px;
+	height:220px;
+	position:relative;
+	top:-216px;
+	border-left-color: transparent;
+  border-right-color: transparent;
+	animation:rotate2 1s cubic-bezier(0.26, 1.36, 0.74,-0.29) infinite;
+}
+#loader3{
+	border:3px solid #d6336c;
+	width:240px;
+	height:240px;
+	position:relative;
+	top:-452px;
+	border-left-color: transparent;
+  border-right-color: transparent;
+	animation:rotate 1s cubic-bezier(0.26, 1.36, 0.74,-0.29) infinite;
+}
+#loader4{
+	border:3px solid #3bc9db;
+	width:260px;
+	height:260px;
+	position:relative;
+	top:-708px;
+	border-left-color: transparent;
+  border-right-color: transparent;
+	animation:rotate2 1s cubic-bezier(0.26, 1.36, 0.74,-0.29) infinite;
+}
+@keyframes rotate{
+	0%{transform:rotateZ(-360deg)}
+	100%{transform:rotateZ(0deg)}
+}
+@keyframes rotate2{
+	0%{transform:rotateZ(360deg)}
+	100%{transform:rotateZ(0deg)}
+}
+#text{
+	color:white;
+	font-family:Arial;
+	font-size:20px;
+	position:relative;
+	top:-857px;
+}
+    </style>
     <head>
         <meta http-equiv="content-type" content="text/html;charset=utf-8" />
-        <meta name="description" content="React Antd admin"/>
+        <meta name="description" content="省钱快报"/>
         <title><%= htmlWebpackPlugin.options.title %></title>
-        <link rel="shortcut icon" href="/insight/dist/resources/img/favicon.ico">
-         <!--[if IE]>
+        <link rel="shortcut icon" href="../images/logo.png">
+         <!-- [if IE]>
             <script src="//cdn.bootcss.com/es6-shim/0.35.1/es6-shim.min.js"></script>
             <script src="//cdn.bootcss.com/es6-shim/0.35.1/es6-sham.min.js"></script>
             <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Intl.~locale.en"></script>
-        <![endif]-->
+        <![endif] -->
     </head>
     <body class="<%= htmlWebpackPlugin.options.theme %>">
-        <div id="mount">
-            加载中...
-        </div>
+      <div id='mount'>
+      </div>
+      <div id='loading'>
+      <center class="loading-center"><br><br><br>
+        <div class="loader" id="loader"></div>
+        <div class="loader" id="loader2"></div>
+        <div class="loader" id="loader3"></div>
+        <div class="loader" id="loader4"></div>
+        <span id="text">LOADING...</span><br>
+      </center>
+    </div>
     </body>
 </html>

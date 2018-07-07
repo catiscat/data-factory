@@ -12,28 +12,32 @@ const contextTypes = {
 
 
 class Frame extends Component {
-  render() {
+  renderLayout() {
     const { children } = this.props;
     return (
-      <Layout className="frame-layout">
-        {<PageHeader />}
-        <Layout>
-          {<PageSidebar />}
-          <Layout style={{ padding: '0 24px 24px' }}>
-            <Breadcrumb style={{ margin: '16px 0' }}>
-              <Breadcrumb.Item>省钱快报-元数据管理平台</Breadcrumb.Item>
-              {/* <Breadcrumb.Item>List</Breadcrumb.Item>
-              <Breadcrumb.Item>App</Breadcrumb.Item> */}
-            </Breadcrumb>
-            <Content style={{ background: '#fff', padding: 24, margin: 0, minHeight: 280 }}>
-              { children || 'Page.Content' }
-            </Content>
-            <Footer style={{ textAlign: 'center' }}>
-              省钱快报数据管理系统 ©2018 Created by 省钱快报
+    <Layout className="frame-layout">
+      {<PageHeader />}
+      <Layout>
+        {<PageSidebar />}
+        <Layout style={{ padding: '0 24px 24px' }}>
+          <Breadcrumb style={{ margin: '16px 0' }}>
+            <Breadcrumb.Item>省钱快报-元数据管理平台</Breadcrumb.Item>
+          </Breadcrumb>
+          <Content style={{ background: '#fff', padding: 24, margin: 0, minHeight: 280 }}>
+            {children || 'Page.Content'}
+          </Content>
+          <Footer style={{ textAlign: 'center' }}>
+            省钱快报数据管理系统 ©2018 Created by BigData
             </Footer>
-          </Layout>
         </Layout>
       </Layout>
+    </Layout>
+    )
+  }
+
+  render() {
+    return (
+      this.renderLayout()
     );
   }
 }

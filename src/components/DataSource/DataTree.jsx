@@ -32,7 +32,7 @@ class DataTree extends Component {
   }
 
 
-  handleSearch = (event) => {
+  handleSearch = (value) => {
     const { dataTree = {} } = this.props;
     const filetred = (dataTree.DataChangeRecords || []).filter(record => {
       var a = (b) => {
@@ -51,7 +51,7 @@ class DataTree extends Component {
         + record.duplicate
         + record.duplicateRate
         + a(record.hasDuplicate)
-        + a(record.hasRingThanGrow) || '').search(event.target.value) > -1
+        + a(record.hasRingThanGrow) || '').search(value) > -1
     })
     this.setState({ dataSource: setKeys(filetred) });
   }
@@ -191,11 +191,17 @@ class DataTree extends Component {
   }
 
   render() {
+    const { dataSource } = this.state;
     return (
       <div>
         <h3>数据量状况</h3>
         <SearchGroup onSearch={this.handleSearch} />
-        <Table scroll={{ x: 1500, y: 300 }} dataSource={this.state.dataSource} columns={this.getColumns()} />
+        <Table
+          scroll={{ x: 1500, y: 300 }}
+          dataSource={dataSource || []}
+          columns={this.getColumns()}
+          loading={!dataSource}
+        />
       </div>
     )
   }

@@ -10,6 +10,12 @@ import routes from './routes'
 import callAPIMiddleware from './middlewares/callAPIMiddleware'
 import './sass/main.scss'
 
+document.addEventListener('DOMContentLoaded', () => {
+  const $loading = document.getElementById('loading');
+  $loading && $loading.remove();
+});
+
+
 const middlewares = [thunkMiddleware, callAPIMiddleware];
 
 if (process.env.NODE_ENV === 'development') {
@@ -31,5 +37,5 @@ const history = syncHistoryWithStore(hashHistory, store);
 ReactDOM.render((
   <Provider store={store}>
     <Router history={history} routes={routes} />
-  </Provider> 
+  </Provider>
 ), document.getElementById('mount'));

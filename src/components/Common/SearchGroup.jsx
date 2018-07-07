@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Input } from 'antd';
 
 const Search = Input.Search;
+
 const propTypes = {
   onSearch: PropTypes.func,
 }

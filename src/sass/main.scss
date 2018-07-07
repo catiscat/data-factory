@@ -1,6 +1,11 @@
 #mount{
-  min-height: calc(100vh - 0px);
+    height: 100vh;
 }
+
+body, html{
+	background:#111;
+}
+
 #components-layout-demo-custom-trigger {
     .trigger {
       font-size: 18px;

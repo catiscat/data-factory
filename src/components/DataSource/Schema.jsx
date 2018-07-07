@@ -33,15 +33,15 @@ class Schema extends Component {
   }
 
 
-  handleSearch = (event) => {
+  handleSearch = (value) => {
     const { schema = {} } = this.props;
-    const filetred = (schema.TableList || []).filter((record) => (record.tableName
+    const filetred = (schema.TableList || []).filter(record => (record.tableName
       + record.databaseName
       + record.owner
       + record.location
       + record.inputFormat
       + record.showCreateTable
-      || '').search(event.target.value) > -1)
+      || '').search(value) > -1)
     this.setState({ dataSource: setKeys(filetred) });
   }
 
@@ -181,21 +181,22 @@ class Schema extends Component {
   }
   render() {
     const { schema } = this.props;
+    const { dataSource } = this.state;
     return (
       <div>
         <h3>表元数据</h3>
         <SearchGroup onSearch={this.handleSearch} />
         <Table
           className="components-table-demo-nested"
-          dataSource={this.state.dataSource}
+          dataSource={dataSource || []}
           expandedRowRender={this.expandedRowRender}
           columns={this.getColumns()}
           scroll={{ x: 1500, y: 300 }}
           expandRowByClick={false}
           onExpand={this.handleExpand}
+          loading={!dataSource}
         />
-        <div>
-        </div>
+        <div />
       </div>
 
 
