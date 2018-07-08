@@ -77,11 +77,9 @@ class LineAge extends Component {
     this.setState({ loading: true });
     const { lineAge = {} } = nextProps || this.props;
     let filterData = this.filterLineAge(lineAge.LineAgeList, query, 2);
-    if (filterData.length < 1) {
-      this.setState({
-        noData: true
-      });
-    }
+    this.setState({
+      noData: filterData.length < 1
+    });
     console.log(filterData, 'filterData');
     this.renderGraphs(filterData)
   }
