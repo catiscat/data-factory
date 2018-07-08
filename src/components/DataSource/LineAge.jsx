@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Spin, Slider, Switch, Select,Popover, Button } from 'antd';
+import { Spin, Slider, Switch, Select, Popover, Button, Icon } from 'antd';
 import jsgraphs from 'js-graph-algorithms';
 import DataSet from 'vis/lib/DataSet';
 import Network from 'vis/lib/network/Network';
@@ -10,6 +10,7 @@ import SearchGroup from '../Common/SearchGroup';
 const propTypes = {
   lineAge: PropTypes.array,
   onFetchLineAge: PropTypes.func,
+  noData: false
 }
 
 class LineAge extends Component {
@@ -76,6 +77,11 @@ class LineAge extends Component {
     this.setState({ loading: true });
     const { lineAge = {} } = nextProps || this.props;
     let filterData = this.filterLineAge(lineAge.LineAgeList, query, 2);
+    if (filterData.length < 1) {
+      this.setState({
+        noData: true
+      });
+    }
     console.log(filterData, 'filterData');
     this.renderGraphs(filterData)
   }
@@ -203,15 +209,16 @@ class LineAge extends Component {
       <Popover placement="bottomLeft" content={this.getConfigContent()} title="请配置">
         <Button type="primary">图配置</Button>
       </Popover>
-   );
+    );
   }
   render() {
-    const { loading } = this.state;
+    const { loading, noData } = this.state;
     return (
       <div>
         <h3>LineAge</h3>
         <SearchGroup onSearch={this.handleSearch} items={[this.renderConfig()]} />
         {loading === true && <Spin style={{ marginLeft: '45%', marginTop: '15%' }} size="large" />}
+        {noData === true && <div style={{ textAlign: 'center', marginTop: '6%' }}><Icon type="frown-o" style={{ marginRight: '5px' }} />No Data</div>}
         <div id="graphs" style={{ width: '100%', height: '60vh' }} />
         {}
       </div>
