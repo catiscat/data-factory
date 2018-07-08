@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Table, Input } from 'antd'
+import { Table } from 'antd'
 import { setKeys } from '../../utils/tableDataTool';
 import SearchGroup from '../Common/SearchGroup';
 
