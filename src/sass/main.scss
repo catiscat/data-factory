@@ -74,3 +74,12 @@ body, html{
   border-radius: 10px;
   height: 42px;
 }
+
+.search-group{
+  background-color: rgb(240, 242, 245);
+  height: 50px;
+  display: flex;
+  flex-direction: row-reverse;
+  padding-right: 10px;
+  padding-top: 10px;
+}

@@ -23,6 +23,7 @@
     "graphql-tag": "^2.9.2",
     "intl": "^1.2.4",
     "isomorphic-fetch": "^2.2.1",
+    "js-graph-algorithms": "^1.0.18",
     "lodash": "^4.17.4",
     "moment": "^2.18.1",
     "prop-types": "^15.5.10",
@@ -35,6 +36,7 @@
     "redux": "^3.5.2",
     "redux-logger": "^2.6.1",
     "redux-thunk": "^2.1.0",
+    "vis": "^4.21.0",
     "viz.js": "^2.0.0"
   },
   "repository": {

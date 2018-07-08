@@ -10,7 +10,7 @@ function mapState2Props(state) {
   const currentState = state.store.dataSource || {};
   return {
     status: currentState.status,
-    LineAge: currentState.lineAge
+    lineAge: currentState.lineAge
   };
 }
 
