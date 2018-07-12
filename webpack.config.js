@@ -2,6 +2,8 @@ const path = require('path');
 const webpack = require('webpack');
 const commonPlugins = require('./webpack/plugins');
 const commonRules = require('./webpack/rules');
+const Uglify = require('uglifyjs-webpack-plugin');
+
 
 module.exports = {
   entry: [
@@ -13,12 +15,7 @@ module.exports = {
   },
   plugins: [
     ...commonPlugins,
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false,
-        drop_console: false // eslint-disable-line
-      }
-    }),
+    new Uglify(),
     new webpack.BannerPlugin({ banner: `Last update: ${new Date().toString()}` })
   ],
   module: {
